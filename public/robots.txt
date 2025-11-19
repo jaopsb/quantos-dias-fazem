@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://quantos-dias-fazem.com/sitemap.xml
+

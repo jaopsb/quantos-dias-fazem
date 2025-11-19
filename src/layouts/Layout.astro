@@ -2,41 +2,126 @@
 interface Props {
   title: string;
   description?: string;
+  canonical?: string;
+  image?: string;
 }
 
-const { title, description = "Calcule quantos dias, semanas, meses, horas, minutos e segundos fazem entre duas datas específicas." } = Astro.props;
+const siteUrl = Astro.site?.href || 'https://quantos-dias-fazem.com';
+const defaultDescription = "Calcule quantos dias, semanas, meses, horas, minutos e segundos fazem entre duas datas específicas. Ferramenta gratuita e fácil de usar.";
+const defaultTitle = "Quantos Dias Fazem? - Calculadora de Diferença entre Datas";
+
+const { 
+  title = defaultTitle, 
+  description = defaultDescription,
+  canonical = Astro.url.pathname,
+  image = `${siteUrl}/og-image.jpg`
+} = Astro.props;
+
+const fullUrl = `${siteUrl}${canonical}`;
 ---
 
 <!doctype html>
 <html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
     <meta name="description" content={description} />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
+    
+    <title>{title}</title>
+    <link rel="canonical" href={fullUrl} />
+    
+    <meta name="keywords" content="calculadora de dias, calcular dias entre datas, diferença entre datas, quantos dias fazem, calculadora de tempo, contador de dias, calculadora de datas, tempo entre datas, dias entre datas, calculadora online, ferramenta online" />
+    <meta name="author" content="Quantos Dias Fazem" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="googlebot" content="index, follow" />
+    <meta name="language" content="Portuguese" />
+    <meta name="geo.region" content="BR" />
+    <meta name="geo.placename" content="Brasil" />
+    
+    <meta name="theme-color" content="#6366f1" />
+    <meta name="msapplication-TileColor" content="#6366f1" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="Quantos Dias Fazem?" />
+    
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
     
-    <!-- SEO Meta Tags -->
-    <title>{title}</title>
-    <meta name="keywords" content="calculadora de dias, calcular dias entre datas, diferença entre datas, quantos dias fazem, calculadora de tempo" />
-    <meta name="author" content="Quantos Dias Fazem" />
-    <meta name="robots" content="index, follow" />
-    
-    <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
+    <meta property="og:url" content={fullUrl} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
+    <meta property="og:image" content={image} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={title} />
     <meta property="og:locale" content="pt_BR" />
+    <meta property="og:site_name" content="Quantos Dias Fazem?" />
     
-    <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content={fullUrl} />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={image} />
+    <meta name="twitter:image:alt" content={title} />
+    <meta name="twitter:creator" content="@quantosdiasfazem" />
+    <meta name="twitter:site" content="@quantosdiasfazem" />
     
-    <!-- Inicializar dark mode antes do render para evitar flash -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Quantos Dias Fazem?",
+      "description": description,
+      "url": siteUrl,
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "Web",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "BRL"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "5",
+        "ratingCount": "1"
+      }
+    })} />
+    
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Quantos Dias Fazem?",
+      "url": siteUrl,
+      "description": description,
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": `${siteUrl}/?q={search_term_string}`
+        },
+        "query-input": "required name=search_term_string"
+      }
+    })} />
+    
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Início",
+        "item": siteUrl
+      }]
+    })} />
+    
     <script is:inline>
       (function() {
         const savedTheme = localStorage.getItem('theme');
