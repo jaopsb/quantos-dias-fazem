@@ -1,0 +1,96 @@
+---
+interface Props {
+  date1: string;
+  date2: string;
+}
+
+const { date1, date2 } = Astro.props;
+
+function calculateDifference(date1Str: string, date2Str: string) {
+  const d1 = new Date(date1Str);
+  const d2 = new Date(date2Str);
+  
+  if (isNaN(d1.getTime()) || isNaN(d2.getTime())) {
+    return null;
+  }
+  
+  // Garantir que a segunda data seja posterior à primeira
+  const start = d1 < d2 ? d1 : d2;
+  const end = d1 < d2 ? d2 : d1;
+  
+  const diffMs = end.getTime() - start.getTime();
+  
+  // Calcular segundos
+  const seconds = Math.floor(diffMs / 1000);
+  
+  // Calcular minutos
+  const minutes = Math.floor(seconds / 60);
+  
+  // Calcular horas
+  const hours = Math.floor(minutes / 60);
+  
+  // Calcular dias
+  const days = Math.floor(hours / 24);
+  
+  // Calcular semanas
+  const weeks = Math.floor(days / 7);
+  
+  // Calcular meses (aproximado)
+  const months = Math.floor(days / 30.44); // Média de dias por mês
+  
+  return {
+    months,
+    weeks,
+    days,
+    hours: hours % 24,
+    minutes: minutes % 60,
+    seconds: seconds % 60,
+    totalDays: days,
+    totalHours: hours,
+    totalMinutes: minutes,
+    totalSeconds: seconds,
+  };
+}
+
+const result = date1 && date2 ? calculateDifference(date1, date2) : null;
+---
+
+{result && (
+  <div class="result-container">
+    <div class="bg-white/95 backdrop-blur-sm rounded-2xl shadow-2xl p-8 max-w-2xl w-full mx-auto">
+      <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">
+        Resultado do Cálculo
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {result.months > 0 && (
+          <div class="bg-gradient-to-br from-blue-500 to-blue-600 text-white p-4 rounded-lg">
+            <div class="text-sm font-medium opacity-90">Meses</div>
+            <div class="text-3xl font-bold">{result.months}</div>
+          </div>
+        )}
+        <div class="bg-gradient-to-br from-purple-500 to-purple-600 text-white p-4 rounded-lg">
+          <div class="text-sm font-medium opacity-90">Semanas</div>
+          <div class="text-3xl font-bold">{result.weeks}</div>
+        </div>
+        <div class="bg-gradient-to-br from-green-500 to-green-600 text-white p-4 rounded-lg">
+          <div class="text-sm font-medium opacity-90">Dias</div>
+          <div class="text-3xl font-bold">{result.totalDays}</div>
+        </div>
+        <div class="bg-gradient-to-br from-orange-500 to-orange-600 text-white p-4 rounded-lg">
+          <div class="text-sm font-medium opacity-90">Horas</div>
+          <div class="text-3xl font-bold">{result.totalHours}</div>
+        </div>
+        <div class="bg-gradient-to-br from-red-500 to-red-600 text-white p-4 rounded-lg">
+          <div class="text-sm font-medium opacity-90">Minutos</div>
+          <div class="text-3xl font-bold">{result.totalMinutes}</div>
+        </div>
+        <div class="bg-gradient-to-br from-indigo-500 to-indigo-600 text-white p-4 rounded-lg">
+          <div class="text-sm font-medium opacity-90">Segundos</div>
+          <div class="text-3xl font-bold">{result.totalSeconds}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+)}
+
+

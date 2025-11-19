@@ -1,0 +1,125 @@
+---
+alwaysApply: true
+---
+
+Estas regras definem o sistema de design do site **Quantos Dias Fazem** — um contador de dias simples, moderno e elegante que calcula a diferença exata entre duas datas. Todo código gerado ou editado deve seguir rigorosamente estas diretrizes para garantir consistência visual, responsividade e excelente experiência do usuário.
+
+### Prioridades
+- **Mobile-first**: estilos base para mobile, depois media queries para telas maiores.
+- **Simplicidade e elegância**: menos é mais. Layout limpo, tipografia refinada e paleta minimalista.
+- **Acessibilidade**: contraste mínimo WCAG AA, HTML semântico, ARIA quando necessário.
+- **Performance**: CSS mínimo, preferir classes do Tailwind, lazy-load quando aplicável.
+- **Transições suaves**: 200–300ms ease para hover/focus em elementos interativos.
+- **Dark mode pronto**: todas as cores definidas funcionam bem em light e dark (via classes `dark:`).
+
+### Não fazer
+- Criar novas cores ou fontes sem justificativa explícita.
+- Usar estilos inline.
+- Valores fixos em px (exceto bordas de 1px); usar rem/em.
+- Ignorar responsividade ou acessibilidade.
+
+## 1. Paleta de Cores (nova — clean, moderna e elegante)
+
+Todas as cores estão definidas no `tailwind.config.js` e devem ser usadas via classes Tailwind.
+
+```js
+// Paleta principal — tons de índigo com cinzas neutros e acentos verdes sutis
+primary-50:  #eef2ff
+primary-100: #e0e7ff
+primary-200: #c7d2fe
+primary-300: #a5b4fc
+primary-400: #818cf8
+primary-500: #6366f1    // ⭐ Cor principal (botões, links, destaques)
+primary-600: #4f46e5
+primary-700: #4338ca
+primary-800: #3730a3
+primary-900: #312e81
+
+// Neutros (fundo e texto)
+neutral-50:  #fafafa
+neutral-100: #f5f5f5
+neutral-200: #e5e7eb
+neutral-300: #d1d5db
+neutral-400: #9ca3af
+neutral-500: #6b7280
+neutral-600: #4b5563
+neutral-700: #374151
+neutral-800: #1f2937
+neutral-900: #111827
+
+// Acentos
+success-500: #10b981   // para resultados positivos, ícones de check
+surface:     #ffffff   // fundo de cards e página (light)
+surface-dark:#1e293b   // fundo em dark mode
+Uso recomendado
+
+Fundo da página: bg-neutral-50 dark:bg-neutral-900
+Cards: bg-white dark:bg-neutral-800
+Texto principal: text-neutral-800 dark:text-neutral-100
+Texto secundário: text-neutral-600 dark:text-neutral-400
+Botões primários: bg-primary-600 hover:bg-primary-700 text-white
+Resultado grande (número de dias): text-primary-600 dark:text-primary-400
+
+Gradiente (opcional para hero ou destaque)
+CSSbg-gradient-to-br from-primary-600 to-primary-700
+2. Tipografia
+
+Fonte principal: Geist ou Inter, com fallback system-ui, -apple-system, sans-serif
+Pesos:
+400 → texto normal
+500 → labels e botões
+600 → headings e números grandes
+700 → títulos principais
+
+Tamanhos (rem):
+xs:   0.75rem
+sm:   0.875rem
+base: 1rem      → corpo
+lg:   1.125rem
+xl:   1.25rem
+2xl:  1.5rem
+3xl:  1.875rem
+4xl:  3rem      → número gigante de dias
+5xl:  3.75rem
+6xl:  4.5rem
+
+
+3. Layout & Espaçamento
+
+Container máximo: max-w-2xl mx-auto px-4 sm:px-6 lg:px-8
+Grid principal: 1 coluna em mobile → 2 colunas a partir de md (data inicial | data final)
+Espaçamento: usar escala padrão do Tailwind (4px base)
+Altura mínima da viewport: min-h-screen flex flex-col
+Footer simples centralizado
+
+4. Componentes Principais
+Botão Primário
+HTMLbg-primary-600 hover:bg-primary-700 focus:ring-4 focus:ring-primary-500/30 text-white font-medium rounded-xl px-6 py-3 transition
+Input de Data (usando input type="date" ou flatpickr com estilo)
+HTMLw-full rounded-xl border border-neutral-300 bg-white px-4 py-3 text-neutral-900 focus:border-primary-500 focus:ring-4 focus:ring-primary-500/20 transition
+dark:bg-neutral-800 dark:border-neutral-700 dark:text-neutral-100
+Card de Resultado
+HTMLbg-white dark:bg-neutral-800 rounded-2xl shadow-lg p-8 text-center border border-neutral-200 dark:border-neutral-700
+Número de dias (grande)
+HTMLtext-6xl md:text-7xl font-bold text-primary-600 dark:text-primary-400 tracking-tight
+5. Páginas Específicas
+
+Home (/): Hero limpo com título “Quantos Dias Fazem”, dois campos de data lado a lado (ou empilhados em mobile), botão grande centralizado e card com resultado gigante + métricas secundárias (anos, meses, semanas, horas).
+Header: apenas logo/título à esquerda e botão de toggle dark mode à direita (sem menu complexo).
+Footer: texto pequeno “© 2025 Quantos Dias Fazem” + link sutil para privacidade.
+
+6. Tailwind Config (resumo do que deve estar no arquivo)
+JavaScripttheme: {
+  extend: {
+    fontFamily: {
+      sans: ['Inter', 'system-ui', 'sans-serif'],
+    },
+    colors: {
+      primary,
+      neutral,
+      success: '#10b981',
+    },
+    colors: { surface: { DEFAULT: '#ffffff', dark: '#1e293b' }}
+    }
+  }
+}
