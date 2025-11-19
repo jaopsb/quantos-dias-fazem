@@ -1,17 +1,23 @@
 # Quantos Dias Fazem?
 
-Site para calcular a diferença entre duas datas, exibindo meses, semanas, dias, horas, minutos e segundos.
+Calculadora de diferença entre datas desenvolvida com Astro.js e Tailwind CSS.
 
 ## Tecnologias
 
 - Astro.js
 - Tailwind CSS
 - TypeScript
+- Lucide Icons
+
+## Instalação
+
+```bash
+npm install
+```
 
 ## Desenvolvimento
 
 ```bash
-npm install
 npm run dev
 ```
 
@@ -21,20 +27,26 @@ npm run dev
 npm run build
 ```
 
-## Estrutura
+## Docker
 
-- `src/pages/index.astro` - Página principal
-- `src/components/DateCalculator.astro` - Componente de cálculo (preparado para uso futuro)
-- `src/layouts/Layout.astro` - Layout base com SEO
+### Build da imagem
 
-## Containers de Anúncios
+```bash
+docker build -t quantos-dias-fazem .
+```
 
-Os containers de anúncios estão preparados no código com os seguintes IDs:
-- `ad-sidebar-left` - Barra lateral esquerda
-- `ad-sidebar-right` - Barra lateral direita
-- `ad-header` - Cabeçalho
-- `ad-footer` - Rodapé
+### Executar container
 
-Todos estão ocultos por padrão e podem ser ativados no futuro removendo a classe `hidden` e adicionando estilos apropriados.
+```bash
+docker run -d -p 8080:80 quantos-dias-fazem
+```
 
+O site estará disponível em `http://localhost:8080`
 
+## Funcionalidades
+
+- Cálculo de diferença entre duas datas
+- Exibição em dias, meses, semanas, horas, minutos e segundos
+- Modo escuro/claro
+- Design responsivo
+- Otimizado para SEO
