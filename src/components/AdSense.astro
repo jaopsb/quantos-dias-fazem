@@ -1,0 +1,47 @@
+---
+interface Props {
+  adSlot: string;
+  adFormat?: string;
+  fullWidthResponsive?: boolean;
+  style?: string;
+  className?: string;
+}
+
+const { 
+  adSlot, 
+  adFormat = 'auto',
+  fullWidthResponsive = true,
+  style = '',
+  className = ''
+} = Astro.props;
+
+const publisherId = import.meta.env.PUBLIC_ADSENSE_PUBLISHER_ID || 'ca-pub-XXXXXXXXXX';
+---
+
+<ins
+  class={`adsbygoogle ${className}`}
+  style={`display:block;${style}`}
+  data-ad-client={publisherId}
+  data-ad-slot={adSlot}
+  data-ad-format={adFormat}
+  data-full-width-responsive={fullWidthResponsive.toString()}
+></ins>
+
+<script>
+  // Função para carregar anúncios
+  function loadAds() {
+    try {
+      ((window as any).adsbygoogle = (window as any).adsbygoogle || []).push({});
+    } catch (e) {
+      console.error('Erro ao carregar anúncio AdSense:', e);
+    }
+  }
+
+  // Carregar anúncios quando o DOM estiver pronto
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', loadAds);
+  } else {
+    loadAds();
+  }
+</script>
+

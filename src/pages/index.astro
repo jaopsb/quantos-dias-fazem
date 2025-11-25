@@ -29,34 +29,6 @@ import { Sun, Moon } from "lucide-astro";
       <Moon id="moon-icon" class="w-5 h-5 block dark:hidden" aria-hidden="true" />
     </button>
 
-    <aside
-      id="ad-sidebar-left"
-      class="hidden fixed left-0 top-0 h-full w-72 z-20"
-      aria-label="Área de anúncio lateral esquerda"
-    >
-    </aside>
-
-    <aside
-      id="ad-sidebar-right"
-      class="hidden fixed right-0 top-0 h-full w-72 z-20"
-      aria-label="Área de anúncio lateral direita"
-    >
-    </aside>
-
-    <header
-      id="ad-header"
-      class="hidden fixed top-0 left-0 right-0 h-20 z-20"
-      aria-label="Área de anúncio superior"
-    >
-    </header>
-
-    <footer
-      id="ad-footer"
-      class="hidden fixed bottom-0 left-0 right-0 h-20 z-20"
-      aria-label="Área de anúncio inferior"
-    >
-    </footer>
-
     <div class="relative z-30 w-full max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
       <header class="text-center mb-8">
         <h1
@@ -259,11 +231,3 @@ import { Sun, Moon } from "lucide-astro";
   }
 </script>
 
-<style>
-  #ad-sidebar-left,
-  #ad-sidebar-right,
-  #ad-header,
-  #ad-footer {
-    display: none;
-  }
-</style>
